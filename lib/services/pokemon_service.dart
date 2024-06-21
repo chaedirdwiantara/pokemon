@@ -15,14 +15,10 @@ class PokemonService {
       for (var item in data) {
         final detailResponse = await http.get(Uri.parse(item['url']));
         if (detailResponse.statusCode == 200) {
-          var detailData = jsonDecode(detailResponse.body);
-          pokemonList.add(Pokemon(
-            name: item['name'] ?? 'Unknown',
-            url: item['url'] ?? '',
-            imageUrl: detailData['sprites'] != null
-                ? detailData['sprites']['front_default'] ?? ''
-                : '',
-          ));
+          var pokemonData = jsonDecode(detailResponse.body);
+          pokemonData['url'] =
+              item['url']; // Assign the url from the list response
+          pokemonList.add(Pokemon.fromJson(pokemonData));
         }
       }
       return pokemonList;
@@ -31,10 +27,10 @@ class PokemonService {
     }
   }
 
-  Future<Map<String, dynamic>> fetchPokemonDetail(String url) async {
+  Future<Pokemon> fetchPokemonDetail(String url) async {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      return Pokemon.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load Pokémon details');
     }

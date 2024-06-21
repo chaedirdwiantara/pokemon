@@ -6,13 +6,13 @@ import 'package:pokemon_app/services/pokemon_service.dart';
 class PokemonController with ChangeNotifier {
   final PokemonService _pokemonService = PokemonService();
   List<Pokemon> _pokemonList = [];
-  Map<String, dynamic>? _selectedPokemon;
+  Pokemon? _selectedPokemon;
   bool _isLoading = false;
   int _offset = 0;
   final int _limit = 14; // Number of items to load per request
 
   List<Pokemon> get pokemonList => _pokemonList;
-  Map<String, dynamic>? get selectedPokemon => _selectedPokemon;
+  Pokemon? get selectedPokemon => _selectedPokemon;
   bool get isLoading => _isLoading;
 
   Future<void> loadInitialPokemonList() async {

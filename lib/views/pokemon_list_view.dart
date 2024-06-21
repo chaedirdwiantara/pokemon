@@ -14,6 +14,19 @@ class PokemonListView extends StatelessWidget {
     final crossAxisCount = (screenWidth ~/ 200)
         .clamp(2, 4); // Adjust the number of columns based on screen width
 
+    Future<void> _loadAndNavigate(Pokemon pokemon) async {
+      await pokemonController.loadPokemonDetail(pokemon.url);
+      if (pokemonController.selectedPokemon != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PokemonDetailView(pokemon: pokemonController.selectedPokemon!),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pokémon List'),
@@ -44,16 +57,7 @@ class PokemonListView extends StatelessWidget {
                   final pokemon = pokemonController.pokemonList[index];
                   return PokemonListItem(
                     pokemon: pokemon,
-                    onTap: () async {
-                      await pokemonController.loadPokemonDetail(pokemon.url);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              PokemonDetailView(pokemon: pokemon),
-                        ),
-                      );
-                    },
+                    onTap: () => _loadAndNavigate(pokemon),
                   );
                 },
               ),

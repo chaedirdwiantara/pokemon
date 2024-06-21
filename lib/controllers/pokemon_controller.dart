@@ -1,3 +1,4 @@
+// lib/controllers/pokemon_controller.dart
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
 import 'package:pokemon_app/services/pokemon_service.dart';
@@ -8,7 +9,7 @@ class PokemonController with ChangeNotifier {
   Map<String, dynamic>? _selectedPokemon;
   bool _isLoading = false;
   int _offset = 0;
-  final int _limit = 20; // Number of items to load per request
+  final int _limit = 14; // Number of items to load per request
 
   List<Pokemon> get pokemonList => _pokemonList;
   Map<String, dynamic>? get selectedPokemon => _selectedPokemon;

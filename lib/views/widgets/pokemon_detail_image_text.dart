@@ -1,7 +1,7 @@
-// lib/views/widgets/pokemon_detail_image_text.dart
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
-import 'package:pokemon_app/utils/string_utils.dart'; // Import the utility function
+import 'package:pokemon_app/utils/string_utils.dart';
+import 'package:pokemon_app/views/widgets/pokemon_type_chip.dart';
 
 class PokemonDetailImageText extends StatelessWidget {
   final Pokemon pokemon;
@@ -38,29 +38,14 @@ class PokemonDetailImageText extends StatelessWidget {
           const SizedBox(height: 10),
           Wrap(
             spacing: 5,
-            children: pokemon.types.map((type) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.4),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                child: Text(
-                  capitalizeFirstLetter(type),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            }).toList(),
+            children: pokemon.types
+                .map((type) => PokemonTypeChip(type: type))
+                .toList(),
           ),
           const SizedBox(height: 10), // Add some space before the image
           Center(
             child: Transform.translate(
-              offset: const Offset(0, -30), // Move the image up by 20px
+              offset: const Offset(0, -30), // Move the image up by 30px
               child: Image.network(
                 pokemon.imageUrlHD,
                 height: 250,

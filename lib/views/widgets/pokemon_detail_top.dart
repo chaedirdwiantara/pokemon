@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
+import 'package:pokemon_app/utils/gradient_colors.dart';
 
 class PokemonDetailTop extends StatelessWidget {
   final Pokemon pokemon;
@@ -8,12 +9,14 @@ class PokemonDetailTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Color> gradientColors = getGradientColors(pokemon.types[0]);
+
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.redAccent, Colors.orangeAccent],
+          colors: gradientColors,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

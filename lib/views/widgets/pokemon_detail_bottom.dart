@@ -7,10 +7,24 @@ import 'package:pokemon_app/views/widgets/tabs/evolution_tab.dart';
 import 'package:pokemon_app/views/widgets/tabs/moves_tab.dart';
 import 'package:provider/provider.dart';
 
-class PokemonDetailBottom extends StatelessWidget {
+class PokemonDetailBottom extends StatefulWidget {
   final Pokemon pokemon;
 
   const PokemonDetailBottom({required this.pokemon});
+
+  @override
+  _PokemonDetailBottomState createState() => _PokemonDetailBottomState();
+}
+
+class _PokemonDetailBottomState extends State<PokemonDetailBottom> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final controller = Provider.of<PokemonController>(context, listen: false);
+      controller.loadEvolutionChain(widget.pokemon.id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,23 +72,20 @@ class PokemonDetailBottom extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    AboutTab(pokemon: pokemon),
-                    BaseStatsTab(pokemon: pokemon),
+                    AboutTab(pokemon: widget.pokemon),
+                    BaseStatsTab(pokemon: widget.pokemon),
                     Consumer<PokemonController>(
                       builder: (context, controller, child) {
-                        if (controller.isLoading) {
+                        if (controller.evolutionChain == null) {
                           return const Center(
                               child: CircularProgressIndicator());
-                        } else if (controller.evolutionChain != null) {
+                        } else {
                           return EvolutionTab(
                               evolutionChain: controller.evolutionChain!);
-                        } else {
-                          return const Center(
-                              child: Text('No evolution data available'));
                         }
                       },
                     ),
-                    MovesTab(pokemon: pokemon),
+                    MovesTab(pokemon: widget.pokemon),
                   ],
                 ),
               ),

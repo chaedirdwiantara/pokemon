@@ -42,10 +42,15 @@ class PokemonController with ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     _selectedPokemon = await _pokemonService.fetchPokemonDetail(url);
-    if (_selectedPokemon != null) {
-      _evolutionChain =
-          await _pokemonService.fetchEvolutionChain(_selectedPokemon!.id);
-    }
+    _evolutionChain = null; // Reset evolution chain
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> loadEvolutionChain(int speciesId) async {
+    _isLoading = true;
+    notifyListeners();
+    _evolutionChain = await _pokemonService.fetchEvolutionChain(speciesId);
     _isLoading = false;
     notifyListeners();
   }

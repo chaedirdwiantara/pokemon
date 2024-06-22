@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
+import 'package:pokemon_app/utils/string_utils.dart'; // Import the utility function
 
 class PokemonDetailImageText extends StatelessWidget {
   final Pokemon pokemon;
@@ -9,14 +10,14 @@ class PokemonDetailImageText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 90, // Position the text below the back arrow
-      left: 16, // Align text to the left
+      top: 90,
+      left: 16,
       right: 16,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            pokemon.name,
+            capitalizeFirstLetter(pokemon.name),
             style: const TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -24,7 +25,7 @@ class PokemonDetailImageText extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment.centerRight, // Align the ID text to the end
+            alignment: Alignment.centerRight,
             child: Text(
               '#${pokemon.id.toString().padLeft(3, '0')}',
               style: const TextStyle(
@@ -33,11 +34,33 @@ class PokemonDetailImageText extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 40), // Space between text and image
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 5,
+            children: pokemon.types.map((type) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                child: Text(
+                  capitalizeFirstLetter(type),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 0),
           Center(
             child: Image.network(
-              pokemon.imageUrl,
-              height: 250, // Reduce the size of the image by 50%
+              pokemon.imageUrlHD,
+              height: 250,
               fit: BoxFit.contain,
             ),
           ),

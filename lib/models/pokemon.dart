@@ -1,4 +1,3 @@
-// lib/models/pokemon.dart
 class Pokemon {
   final int id;
   final String name;
@@ -7,6 +6,7 @@ class Pokemon {
   final List<String> types;
   final List<String> abilities;
   final String imageUrl;
+  final String imageUrlHD;
   final int hp;
   final int attack;
   final int defense;
@@ -23,6 +23,7 @@ class Pokemon {
     required this.types,
     required this.abilities,
     required this.imageUrl,
+    required this.imageUrlHD,
     required this.hp,
     required this.attack,
     required this.defense,
@@ -48,6 +49,7 @@ class Pokemon {
       types: types,
       abilities: abilities,
       imageUrl: json['sprites']['front_default'] ?? '',
+      imageUrlHD: json['sprites']['other']['home']['front_default'] ?? '',
       hp: json['stats'][0]['base_stat'],
       attack: json['stats'][1]['base_stat'],
       defense: json['stats'][2]['base_stat'],

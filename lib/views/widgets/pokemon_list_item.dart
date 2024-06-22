@@ -1,8 +1,8 @@
-// lib/views/widgets/pokemon_list_item.dart
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
 import 'package:pokemon_app/utils/string_utils.dart';
 import 'package:pokemon_app/utils/gradient_colors.dart';
+import 'package:pokemon_app/views/widgets/pokemon_type_chip.dart';
 
 class PokemonListItem extends StatelessWidget {
   final Pokemon pokemon;
@@ -16,56 +16,54 @@ class PokemonListItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Card(
-          elevation: 2,
-          margin: const EdgeInsets.all(4),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: gradientColors,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: gradientColors,
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              top: 12.0, bottom: 5.0, right: 5.0, left: 12.0),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(16)),
-                        image: DecorationImage(
-                          image: pokemon.imageUrlHD.isNotEmpty
-                              ? NetworkImage(pokemon.imageUrlHD)
-                              : const AssetImage(
-                                      'assets/images/image_not_found.png')
-                                  as ImageProvider,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
                   Text(
                     capitalizeFirstLetter(pokemon.name),
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                    textAlign: TextAlign.center,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: pokemon.types
+                        .take(2)
+                        .map((type) => Padding(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: PokemonTypeChip(type: type),
+                            ))
+                        .toList(),
                   ),
                 ],
               ),
-            ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Image.network(
+                  pokemon.imageUrlHD,
+                  height: 80,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -28,7 +28,16 @@ class PokemonListView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pokémon List'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'Pokédex',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -43,13 +52,13 @@ class PokemonListView extends StatelessWidget {
               return false;
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount, // Number of columns
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0,
-                  childAspectRatio: 3 / 2, // Adjust the aspect ratio as needed
+                  childAspectRatio: 3 / 2,
                 ),
                 itemCount: pokemonController.pokemonList.length,
                 itemBuilder: (context, index) {

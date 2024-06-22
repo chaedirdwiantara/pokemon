@@ -31,8 +31,8 @@ class PokemonListItem extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.vertical(top: Radius.circular(16)),
                       image: DecorationImage(
-                        image: pokemon.imageUrl.isNotEmpty
-                            ? NetworkImage(pokemon.imageUrl)
+                        image: pokemon.imageUrlHD.isNotEmpty
+                            ? NetworkImage(pokemon.imageUrlHD)
                             : const AssetImage(
                                     'assets/images/image_not_found.png')
                                 as ImageProvider,

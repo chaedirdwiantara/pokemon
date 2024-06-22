@@ -1,3 +1,4 @@
+// lib/views/widgets/pokemon_detail_image_text.dart
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
 import 'package:pokemon_app/utils/string_utils.dart'; // Import the utility function
@@ -56,12 +57,15 @@ class PokemonDetailImageText extends StatelessWidget {
               );
             }).toList(),
           ),
-          const SizedBox(height: 0),
+          const SizedBox(height: 10), // Add some space before the image
           Center(
-            child: Image.network(
-              pokemon.imageUrlHD,
-              height: 250,
-              fit: BoxFit.contain,
+            child: Transform.translate(
+              offset: const Offset(0, -30), // Move the image up by 20px
+              child: Image.network(
+                pokemon.imageUrlHD,
+                height: 250,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ],

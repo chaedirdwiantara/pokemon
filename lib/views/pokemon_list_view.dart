@@ -1,4 +1,3 @@
-// lib/views/pokemon_list_view.dart
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/controllers/pokemon_controller.dart';
 import 'package:pokemon_app/models/pokemon.dart';

@@ -53,25 +53,30 @@ class PokemonListView extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount, // Number of columns
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 3 / 2,
-                ),
-                itemCount: pokemonController.pokemonList.length,
-                itemBuilder: (context, index) {
-                  final pokemon = pokemonController.pokemonList[index];
-                  return PokemonListItem(
-                    pokemon: pokemon,
-                    onTap: () => _loadAndNavigate(pokemon),
-                  );
-                },
-              ),
+              child: pokemonController.pokemonList.isEmpty
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount, // Number of columns
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        childAspectRatio: 3 / 2,
+                      ),
+                      itemCount: pokemonController.pokemonList.length,
+                      itemBuilder: (context, index) {
+                        final pokemon = pokemonController.pokemonList[index];
+                        return PokemonListItem(
+                          pokemon: pokemon,
+                          onTap: () => _loadAndNavigate(pokemon),
+                        );
+                      },
+                    ),
             ),
           ),
-          if (pokemonController.isLoading)
+          if (pokemonController.isLoading &&
+              pokemonController.pokemonList.isNotEmpty)
             const Positioned(
               bottom: 16,
               left: 0,

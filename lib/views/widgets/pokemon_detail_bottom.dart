@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_app/controllers/pokemon_controller.dart';
 import 'package:pokemon_app/models/pokemon.dart';
 import 'package:pokemon_app/views/widgets/tabs/about_tab.dart';
 import 'package:pokemon_app/views/widgets/tabs/base_stats_tab.dart';
 import 'package:pokemon_app/views/widgets/tabs/evolution_tab.dart';
 import 'package:pokemon_app/views/widgets/tabs/moves_tab.dart';
+import 'package:provider/provider.dart';
 
 class PokemonDetailBottom extends StatelessWidget {
   final Pokemon pokemon;
@@ -58,8 +60,21 @@ class PokemonDetailBottom extends StatelessWidget {
                   children: [
                     AboutTab(pokemon: pokemon),
                     BaseStatsTab(pokemon: pokemon),
-                    const EvolutionTab(),
-                    const MovesTab(),
+                    Consumer<PokemonController>(
+                      builder: (context, controller, child) {
+                        if (controller.isLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (controller.evolutionChain != null) {
+                          return EvolutionTab(
+                              evolutionChain: controller.evolutionChain!);
+                        } else {
+                          return const Center(
+                              child: Text('No evolution data available'));
+                        }
+                      },
+                    ),
+                    MovesTab(pokemon: pokemon),
                   ],
                 ),
               ),

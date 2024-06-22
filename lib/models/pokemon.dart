@@ -15,6 +15,7 @@ class Pokemon {
   final double weight;
   final List<String> abilities;
   final String url;
+  final List<String> moves;
 
   Pokemon({
     required this.id,
@@ -33,6 +34,7 @@ class Pokemon {
     required this.weight,
     required this.abilities,
     required this.url,
+    required this.moves,
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
@@ -41,9 +43,10 @@ class Pokemon {
       name: json['name'],
       imageUrl: json['sprites']['front_default'] ?? '',
       imageUrlHD: json['sprites']['other']['official-artwork']['front_default'],
-      types: (json['types'] as List<dynamic>)
-          .map((type) => type['type']['name'] as String)
-          .toList(),
+      types: (json['types'] as List<dynamic>?)
+              ?.map((type) => type['type']['name'] as String)
+              .toList() ??
+          [],
       hp: json['stats'][0]['base_stat'],
       attack: json['stats'][1]['base_stat'],
       defense: json['stats'][2]['base_stat'],
@@ -53,10 +56,15 @@ class Pokemon {
       species: json['species']['name'],
       height: json['height'] / 10,
       weight: json['weight'] / 10,
-      abilities: (json['abilities'] as List<dynamic>)
-          .map((ability) => ability['ability']['name'] as String)
-          .toList(),
+      abilities: (json['abilities'] as List<dynamic>?)
+              ?.map((ability) => ability['ability']['name'] as String)
+              .toList() ??
+          [],
       url: json['url'] ?? '',
+      moves: (json['moves'] as List<dynamic>?)
+              ?.map((move) => move['move']['name'] as String)
+              .toList() ??
+          [],
     );
   }
 }

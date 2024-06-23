@@ -17,60 +17,55 @@ class PokemonDetailLandscape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        PokemonDetailTop(pokemon: pokemon),
-                        Positioned(
-                          top: 30,
-                          left: 16,
-                          right: 16,
-                          child:
-                              PokemonDetailImageTextLandscape(pokemon: pokemon),
-                        ),
-                      ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Stack(
+                  children: [
+                    PokemonDetailTop(pokemon: pokemon),
+                    Positioned(
+                      top: 80,
+                      left: 16,
+                      right: 16,
+                      child: PokemonDetailImageTextLandscape(pokemon: pokemon),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: PokemonDetailBottomLandscape(pokemon: pokemon),
-            ),
-          ],
-        ),
-        Positioned(
-          top: 30,
-          left: 0,
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+              Expanded(
+                flex: 1,
+                child: PokemonDetailBottomLandscape(pokemon: pokemon),
+              ),
+            ],
           ),
-        ),
-        Positioned(
-          top: 30,
-          left: 310,
-          child: IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: isLiked ? Colors.pink : Colors.white,
-              size: 26.0,
+          Positioned(
+            top: 30,
+            left: 0,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            onPressed: onToggleLike,
           ),
-        ),
-      ],
+          Positioned(
+            top: 30,
+            left: 310,
+            child: IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: isLiked ? Colors.pink : Colors.white,
+                size: 26.0,
+              ),
+              onPressed: onToggleLike,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

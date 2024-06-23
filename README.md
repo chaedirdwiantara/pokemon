@@ -10,8 +10,6 @@ dependencies: - provider - shared_preferences
 
 features: - Portrait & Landscape mode - Favorite Pokemon features - Tab Features
 
-A few resources to get you started if this is your first Flutter project:
-
 - List View Screenshots
   ![alt text](Screenshot_2024-06-23-13-45-16-674_com.example.pokemon_app.jpg)
 

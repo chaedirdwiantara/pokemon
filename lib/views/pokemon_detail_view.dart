@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon.dart';
+import 'package:pokemon_app/views/pokemon_detail_landscape.dart';
 import 'widgets/pokemon_detail_top.dart';
 import 'widgets/pokemon_detail_bottom.dart';
 import 'widgets/pokemon_detail_image_text.dart';
@@ -51,39 +52,51 @@ class _PokemonDetailViewState extends State<PokemonDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          PokemonDetailTop(pokemon: widget.pokemon),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: PokemonDetailBottom(pokemon: widget.pokemon),
+      body: isLandscape
+          ? PokemonDetailLandscape(
+              pokemon: widget.pokemon,
+              isLiked: isLiked,
+              onToggleLike: _toggleLike)
+          : _buildPortraitLayout(),
+    );
+  }
+
+  Widget _buildPortraitLayout() {
+    return Stack(
+      children: [
+        PokemonDetailTop(pokemon: widget.pokemon),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: PokemonDetailBottom(pokemon: widget.pokemon),
+        ),
+        PokemonDetailImageText(pokemon: widget.pokemon),
+        Positioned(
+          top: 40,
+          left: 0,
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          PokemonDetailImageText(pokemon: widget.pokemon),
-          Positioned(
-            top: 40,
-            left: 0,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+        ),
+        Positioned(
+          top: 40,
+          right: 6,
+          child: IconButton(
+            icon: Icon(
+              Icons.favorite,
+              color: isLiked ? Colors.pink : Colors.white,
+              size: 26.0,
             ),
+            onPressed: _toggleLike,
           ),
-          Positioned(
-            top: 40,
-            right: 6,
-            child: IconButton(
-              icon: Icon(
-                Icons.favorite,
-                color: isLiked ? Colors.pink : Colors.white,
-                size: 26.0,
-              ),
-              onPressed: _toggleLike,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

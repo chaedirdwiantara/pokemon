@@ -6,11 +6,17 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
+dependencies: - provider - shared_preferences
+
+features: - Portrait & Landscape mode - Favorite Pokemon features - Tab Features
+
 A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- List View Screenshots
+  ![alt text](Screenshot_2024-06-23-13-45-16-674_com.example.pokemon_app.jpg)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Detail Portrait mode Screenshots
+  ![alt text](Screenshot_2024-06-23-13-47-02-172_com.example.pokemon_app.jpg)
+
+- Detail Landscape mode Screenshots
+  ![alt text](Screenshot_2024-06-23-13-47-13-768_com.example.pokemon_app.jpg)
